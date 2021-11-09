@@ -18,7 +18,7 @@ class Router {
         this.getHelth();
         this.getWellcome();
         this.getMiddlewareKeyclock();
-        this.getRoutesPath();
+        this.getPaths();
     }
 
     initSesion(session){
@@ -27,7 +27,7 @@ class Router {
             this.__express.use(session({
                 resave:true,
                 saveUninitialized:true,
-                secret:'e2673801-c4f0-4d9a-a92f-7993180903a6',
+                secret:'mySecret',
                 cookie:{maxAge:3600000*24},
                 store: this.__memoryStore
             })) 
@@ -39,9 +39,14 @@ class Router {
         return new Router(express).__express
     }
 
+
+
     getMiddlewareKeyclock() {
         console.info('Creating middleware')
-        return this.__express.use(this.__keyclock.middleware())
+        return this.__express.use(this.__keyclock.middleware({
+            logout: '/logout',
+            admin: '/'
+          }))
     }
 
     getWellcome() {
@@ -55,38 +60,26 @@ class Router {
         return this.__express.get('/helth',(req, resp) => (resp.send({status:'up'})))
     }
 
-    getRoutesPath() {
+    getPaths() {
         console.info('Impl routers path')
-        this.middleware('/admin/teste', require('../controller/ListController'))
-        // this.__express.get('/admin',
-        //     this.__keyclock.protect(['user']),
-        //     require('../controller/ListController').get);
-        // this.__express.get('/admin/teste', this.__keyclock.protect(['user','admin']),(req, resp) => (resp.send({status:'up'})))
-    }
+        
+        this.__express.get('/anonimous',(req, resp) => (resp.send("User anonimous")));
+        
+        this.__express.get('/destroy',
+            this.__keyclock.protect(['user','admin']),(req, resp) => {
+                req.session.destroy()
+                resp.redirect('/');
+            });
 
-    middleware(path, controller, protect) {
-        if(!protect) {
-            console.log('create path')
-         this.__express.use(path, function (req, res, next) {
-            console.log('Request Type:', req.method);
-                switch (req.method) {
-                    case 'GET':
-                            controller.get
-                        break; 
-                }
-            next();
-          });
-        } else {
-            this.__express.use(path,protect, function (req, res, next) {
-                console.log('Request Type:', req.method);
-                    switch (req.method) {
-                        case 'GET':
-                                controller.get
-                            break; 
-                    }
-                next();
-              });
-        }
+        this.__express.get('/user/info',
+            this.__keyclock.protect('user'),
+            (req, resp) => (resp.send("<h1>Simple User</h1>")));
+        
+        this.__express.get('/admin/info',
+            this.__keyclock.protect('admin'),
+            (req, resp) => (resp.send("<h1>Simple User</h1>")));
+
+        //this.__express.use('/admin',this.__keyclock.protect(['user']), require('./routePaths'));
     }
 
 }
