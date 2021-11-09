@@ -1,0 +1,10 @@
+version: "3.1"
+services:
+  api-nodejs:
+    build: docker/api-nodejs
+    container_name: api-nodejs
+    working_dir: /application
+    volumes:
+      - ./api:/application
+    ports:
+       - "3000:3000"  

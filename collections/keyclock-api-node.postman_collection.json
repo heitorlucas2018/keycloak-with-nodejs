@@ -1,0 +1,178 @@
+{
+	"info": {
+		"_postman_id": "506592f0-ebc9-499f-ba3f-8f34151c83b4",
+		"name": "keyclock-api-node",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Request Token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "node-api",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "e2673801-c4f0-4d9a-a92f-7993180903a6",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "usertestnodeapi",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/realms/realmTest/protocol/openid-connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"realms",
+						"realmTest",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Request Api Using OAuth2.0",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "tokenType",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJmQ2M4RDhSdEJHRGNYTUxrbVZGQ21GWDZJZE1sWVhIQVZ0SlV4ZEZWLXVvIn0.eyJleHAiOjE2MzYzMDM0MjYsImlhdCI6MTYzNjMwMzEyNiwianRpIjoiZmQ0YTkyNzgtZDVlNy00YWFhLWFhODctYWJkNjcwYmMzZjMwIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL3JlYWxtVGVzdCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIwOTMyYzcwOS05YTVkLTRlNDktYjFlMy1hYzc3MzdlNjI3YWUiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJub2RlLWFwaSIsInNlc3Npb25fc3RhdGUiOiI5ZTQ4MTBkOC1lZjViLTQ2MmUtOGVlMC0xNDE0MWVhNzZhMDQiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsidXNlci1hcHAiLCJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtcmVhbG10ZXN0IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJub2RlLWFwaSI6eyJyb2xlcyI6WyJhZG1pbiIsInVzZXIiXX0sImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6IjllNDgxMGQ4LWVmNWItNDYyZS04ZWUwLTE0MTQxZWE3NmEwNCIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwicHJlZmVycmVkX3VzZXJuYW1lIjoidXNlcnRlc3Rub2RlYXBpIn0.oj_qYGw2GfMhi-lsPX_F2Qx8kPOgrLJonMUV--8vRBKEwLrSokvESv1m6LiTY2qRuKGaq-qZigCCxA33Js174jD_-j9R-cWz_Jr759x_SXpNdN5hwXlrwX0ZZBqt9nDGkyOetUH8wzrRcQjnIqnnkArdDMP9vDGW1mAdaNDvxLhcwBmBs1NQLENwQqipFfbgMMWYoL2mnI2ywSIollSCUXFBnEWaX4LrCJp-r6r8gBoZPVjW0b3aws7bOywV-rDRySnqBHSa28vfWpbfebQPL-hi59XXtuu1VElWEcvth2XlUa0qfS8sVc0V5jgyWE2pSwv2jJjBOBGmeiaL0vYo7g",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "password_credentials",
+							"type": "string"
+						},
+						{
+							"key": "accessTokenUrl",
+							"value": "http://localhost:8080/auth/realms/realmTest/protocol/openid-connect/token",
+							"type": "string"
+						},
+						{
+							"key": "clientId",
+							"value": "node-api",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "usertestnodeapi",
+							"type": "string"
+						},
+						{
+							"key": "clientSecret",
+							"value": "e2673801-c4f0-4d9a-a92f-7993180903a6",
+							"type": "string"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "tokenName",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "useBrowser",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "authUrl",
+							"value": "http://localhost:8080/auth/realms/realmTest/protocol/openid-connect/auth",
+							"type": "string"
+						},
+						{
+							"key": "client_authentication",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "state",
+							"value": "942cdcfa-5d90-4743-99c8-e6087d9e93af",
+							"type": "string"
+						},
+						{
+							"key": "scope",
+							"value": "email profile",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/admin/teste",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"admin",
+						"teste"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

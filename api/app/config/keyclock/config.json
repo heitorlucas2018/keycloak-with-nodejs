@@ -1,0 +1,9 @@
+{
+    "clientId": "api-node",
+    "bearerOnly": false,
+    "serverUrl": "http://localhost:8080/auth",
+    "realm": "RealmTest ",
+    "credentials": {
+        "secret": "5754f717-773b-4fa4-92a7-69119279238f"
+    }
+}
