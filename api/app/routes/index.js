@@ -65,8 +65,16 @@ class Router {
         
         this.__express.get('/anonimous',(req, resp) => (resp.send("User anonimous")));
         
+        const types_usser = ['user','admin'];
+
+        if(types_usser instanceof Array) {
+            types_usser.indexOf('user') > -1 ;
+        } else if (types_usser === 'user')
+
+
+
         this.__express.get('/destroy',
-            this.__keyclock.protect(['user','admin']),(req, resp) => {
+            this.__keyclock.protect('user', 'admin'),(req, resp) => {
                 req.session.destroy()
                 resp.redirect('/');
             });
@@ -83,6 +91,4 @@ class Router {
     }
 
 }
-
-
 module.exports = Router

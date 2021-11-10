@@ -18,7 +18,7 @@ services:
       container_name: server-keyclock-node
       environment:
         DB_VENDOR: MYSQL
-        DB_ADDR: mysql
+        DB_ADDR: database
         DB_DATABASE: keycloak
         DB_USER: keycloak
         DB_PASSWORD: password
