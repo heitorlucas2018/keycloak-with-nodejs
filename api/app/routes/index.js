@@ -1,3 +1,4 @@
+const path = require('path');
 class Router {
     __express;
     __keyclock;
@@ -51,8 +52,7 @@ class Router {
 
     getWellcome() {
         return this.__express.get('/', (req, res) => {
-            console.log(req.params)
-            res.send('Hello word')
+            res.sendFile(path.join('/application/app/view/wellcome.html'));
         });
     }
 

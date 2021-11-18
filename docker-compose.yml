@@ -1,44 +1,42 @@
-version: "3.1"
+version: '3'
+
 services:
   database:
-      image: mysql:5.7
-      container_name: database-keyclock-node
-      ports:
-        - 3306:3306
-      volumes:
-        - ./docker/database/my.cnf:/etc/mysql/conf.d/custom.cnf
-        - ./docker/database/data:/var/lib/mysql
-      environment:
-        MYSQL_ROOT_PASSWORD: root
-        MYSQL_DATABASE: keycloak
-        MYSQL_USER: keycloak
-        MYSQL_PASSWORD: password
+    image: mysql:5.7
+    volumes:
+      - ./docker/database/data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: keycloak
+      MYSQL_USER: keycloak
+      MYSQL_PASSWORD: password
+  
   server-auth:
-      image: quay.io/keycloak/keycloak:15.0.2
-      container_name: server-keyclock-node
-      environment:
-        DB_VENDOR: MYSQL
-        DB_ADDR: database
-        DB_DATABASE: keycloak
-        DB_USER: keycloak
-        DB_PASSWORD: password
-        KEYCLOAK_USER: admin
-        KEYCLOAK_PASSWORD: admin
-        # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the MySQL JDBC driver documentation in order to use it.
-        #JDBC_PARAMS: "connectTimeout=30000"
-      ports:
-        - 8080:8080
-      depends_on:
-        - database
+    image: quay.io/keycloak/keycloak:15.0.2
+    environment:
+      DB_VENDOR: MYSQL
+      DB_ADDR: database
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_PASSWORD: password
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the MySQL JDBC driver documentation in order to use it.
+      #JDBC_PARAMS: "connectTimeout=30000"
+    volumes:
+      - ./docker/server-aith/standalone/deployments/:/opt/jboss/keycloak/standalone/deployments/
+    ports:
+      - 8080:8080
+      - 8443:8443
+    depends_on:
+      - database
+  
   api-nodejs:
     build: docker/api-nodejs
-    container_name: api-keyclock-node
     working_dir: /application
     volumes:
       - ./api:/application
     ports:
-      - "3000:3000"  
-    #links:
-    #  - server-auth:api-nodejs
-    #depends_on:
-    #  - server-auth
+      - "3000:3000"
+    depends_on:
+      - server-auth
