@@ -34,6 +34,8 @@ services:
   api-nodejs:
     build: docker/api-nodejs
     working_dir: /application
+    environment:
+      - PORT=3000
     volumes:
       - ./api:/application
     ports:

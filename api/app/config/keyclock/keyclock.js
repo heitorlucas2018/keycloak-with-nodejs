@@ -17,7 +17,7 @@ class KeycloakImpl {
         }
     }
 
-    get() {
+    static get() {
         if (!KeycloakImpl._keycloak) {
             console.error('Keycloak has not been initialized. Please called init first.');
         }

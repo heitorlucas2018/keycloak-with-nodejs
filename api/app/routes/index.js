@@ -1,4 +1,6 @@
 const path = require('path');
+const cors = require('cors');
+
 class Router {
     __express;
     __keyclock;
@@ -16,6 +18,7 @@ class Router {
     }
 
     bootstrap() {
+        this.__express.use(cors());
         this.getHelth();
         this.getWellcome();
         this.getMiddlewareKeyclock();
@@ -35,12 +38,10 @@ class Router {
         }
     }
 
-    static start(express) {
+    static builder(express) {
         console.info('Creating routers')
         return new Router(express).__express
     }
-
-
 
     getMiddlewareKeyclock() {
         console.info('Creating middleware')
@@ -57,37 +58,12 @@ class Router {
     }
 
     getHelth() {
-        return this.__express.get('/helth',(req, resp) => (resp.send({status:'up'})))
+        return this.__express.get('/api/v1/helth',(req, resp) => (resp.send({status:'up'})))
     }
 
     getPaths() {
         console.info('Impl routers path')
-        
-        this.__express.get('/anonimous',(req, resp) => (resp.send("User anonimous")));
-        
-        const types_usser = ['user','admin'];
-
-        if(types_usser instanceof Array) {
-            types_usser.indexOf('user') > -1 ;
-        } else if (types_usser === 'user')
-
-
-
-        this.__express.get('/destroy',
-            this.__keyclock.protect('user', 'admin'),(req, resp) => {
-                req.session.destroy()
-                resp.redirect('/');
-            });
-
-        this.__express.get('/user/info',
-            this.__keyclock.protect('user'),
-            (req, resp) => (resp.send("<h1>Simple User</h1>")));
-        
-        this.__express.get('/admin/info',
-            this.__keyclock.protect('admin'),
-            (req, resp) => (resp.send("<h1>Simple User</h1>")));
-
-        //this.__express.use('/admin',this.__keyclock.protect(['user']), require('./routePaths'));
+        this.__express.use('/api/v1',this.__keyclock.protect(['user']), require('./routePaths'));
     }
 
 }
