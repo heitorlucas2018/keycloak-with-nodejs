@@ -63,7 +63,8 @@ class Router {
 
     getPaths() {
         console.info('Impl routers path')
-        this.__express.use('/api/v1',this.__keyclock.protect(['user']), require('./routePaths'));
+        //this.__express.use('/api/v1',this.__keyclock.protect(['user','admin']), require('./routePaths'));
+        this.__express.use('/api/v1', require('./routePaths'));
     }
 
 }
